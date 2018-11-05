@@ -1,5 +1,5 @@
 <?php
-class Home extends Controller 
+class Home extends Controller
 {
     public function __construct($controller, $action)
     {
@@ -8,6 +8,10 @@ class Home extends Controller
 
     public function indexAction()
     {
-        $this->view->render('home/index');
+      $db = DB::getInstance();
+      $sql = "SELECT * FROM contacts";
+      $con = $db->query($sql);
+      dnd($con);
+      $this->view->render('home/index');
     }
 }

@@ -18,7 +18,7 @@
             }
             catch(PDOException $e){
                 die($e->getMessage());
-            } 
+            }
         }
 
         public static function getInstance()
@@ -46,6 +46,14 @@
                 $this->_results = $this->fetchAll(PDO::FETCH_OBJ);
                 $this->_count = $this->_query->rowCount();
                 $this->_lastInsertID = $this->_pdo->lastInsertId();
+            }else {
+              $this->_error = true;
             }
+            return $this;
+        }
+
+        public function insert($table, $fields = [])
+        {
+          
         }
     }
