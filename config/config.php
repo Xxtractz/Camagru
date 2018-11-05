@@ -12,4 +12,4 @@
     define ("PROOT", "/Camagru/"); 
 
     // this will be set if the site title
-    define ("SITE_TITLE", "Camagru"); 
+    define ("SITE_TITLE", "Camagru");   
