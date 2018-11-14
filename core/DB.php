@@ -1,5 +1,5 @@
 <?php
-
+    require_once __DIR__."/../config/database.php";
     class DB
     {
         private static $_instance = null;
@@ -13,8 +13,11 @@
 
         private function __construct()
         {
+            global $DB_DSN;
+            global $DB_USER;
+            global $DB_PASSWORD;
             try{
-                $this->_pdo = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+                $this->_pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
             }
             catch(PDOException $e){
                 die($e->getMessage());
@@ -50,6 +53,66 @@
               $this->_error = true;
             }
             return $this;
+        }
+        // 
+        protected function _read($table, $params = []){
+            $conditionString = '';
+            $bind = '';
+            $order = '';
+            $limit = '';
+
+            //Conditions
+            if(isset($params['conditions'])){
+                if(is_array($params['conditions'])){
+                    foreach ($params['conditions'] as $condition) {
+                        $conditionString .= ' '.$condition . ' AND';
+                    }
+                    $conditionString = trim($conditionString);
+                    $conditionString = rtrim($conditionString, ' AND');
+                }else{
+                    $conditionString = $params['conditions'];
+                }
+                if ($conditionString != '') {
+                    $conditionString = ' WHERE ' . $conditionString;
+                }   
+            }
+
+            // bind
+            if (array_key_exists('bind', $params)){
+                $bind = $params['bind'];
+            }
+
+            // order
+            if (array_key_exists('order', $params)){
+                $order = ' ORDER BY ' . $params['order'];
+            }
+
+            // limit 
+            if (array_key_exists('limit', $params)){
+                $limit = ' LIMIT ' . $params['limit'];
+            }
+
+        $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
+        if($this->query($sql, $bind)){
+            if(!count($this->_result))
+                return false;
+            return true;
+        }
+        return false;
+        }
+
+        public function find($table, $params = []){
+            if ($this->_read($table, $params)) {
+                return $this->_result;
+            }
+            return false;
+        }
+
+        public function findFirst($table, $params = []){
+            if ($this->_read($table, $params)) {
+                return $this->first();
+            }
+            return false;
         }
 
         public function insert($table, $fields = [])
@@ -104,6 +167,11 @@
         public function results()
         {
             return $this->_result;
+        }
+
+        public function first()
+        {
+            return (!empty($this->_result)) ? $this->_result[0] : [] ;
         }
         
         public function error(){
