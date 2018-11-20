@@ -23,40 +23,6 @@
     <?= $this->content('head'); ?>
 </head>
 <body>
-  <nav class="navbar fixed-top navbar-expand-md navbar-light nav-bg border-bottom border-dark" >
-    <a class="navbar-brand " href="" :hover>
-    <img class ="logo d-inline-block align-top" src="<?=PROOT?>img/logo.png" >
-    CAMAGRU
-    </a>
-    <label for="toggle" class="hide"> &#9776</label>
-        <input type="checkbox" id="toggle">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Home </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Account </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" type="button" class="btn btn-outline-secondary">Sign in</a>
-            <a href="#" type="button" class="btn btn-outline-secondary">Sign out</a>
-            <a href="#" type="button" class="btn btn-outline-secondary">Sign up</a>
-            </li>
-
-          </ul>
-            
-        </div>
-  </nav>
-     <!-- <div class = "navbar -blue">
-        
-        <a href="#" class="right fas fa-sign-in-alt "> login</a>
-        <a href="#" class="right fas fa-user-plus" > Sign_up</a>
-        <a href="#" class="right fas fa-cogs"> Settings</a>
-        <a href="#" class="right fas fa-sign-out-alt "> Logout</a>
-        <a href="#" class="right fas fa-user-circle"> Profile</a>
-        <a href="#" class="right fas fa-home"> Home</a>
-    </div> -->
   <main role="main">
     <div class="jumbotron">
       

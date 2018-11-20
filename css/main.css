@@ -51,3 +51,37 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+
+  /* Start Menu  Responsive*/
+
+  label{
+    margin: 0 15px 0 0;
+    font-size: 25px;
+  }
+  .hide{
+    display: none;
+  }
+
+  #toggle{
+    display: none;
+  }
+
+  @media only screen and (max-width: 767px){
+    .hide{
+      display: block;
+      cursor: pointer;
+    }
+    .navbar-nav li{
+      text-align: center;
+      width: 100%;
+    }
+    .navbar-nav li.nav-item a{ 
+      display: block;
+      border-bottom: 1px solid gray;
+      margin: 0;
+    } 
+    #toggle:checked + .navbar-collapse{
+      display: block;
+    }
+  }
+  /* End Menu Responsive */

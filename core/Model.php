@@ -19,6 +19,7 @@ class Model
     protected function _setTableColumns(){
         $columns = $this->get_columns();
         foreach ($columns as $column) {
+            $columnNames = $column->Field;
             $this->_columnNames[] = $column->Field;
             $this->{$columnNames} = null;
         }
@@ -40,10 +41,12 @@ class Model
     }
 
     public function findFirst($params = []){
-        $resultsQuery = $this->_db->find($this->_table, $params);
-        $results = new $this->_modelName($this->_table);
-        $results->populateObjData($resultsQuery);
-        return $results;
+        $resultQuery = $this->_db->findFirst($this->_table, $params);
+        $result = new $this->_modelName($this->_table);
+        if($resultQuery){
+            $result->populateObjData($resultQuery);
+        }
+        return $result;
     }
 
     public function findById($id){
@@ -110,9 +113,9 @@ class Model
         return false;
     }
 
-    protected function populateObjData($results){
+    protected function populateObjData($result){
         foreach ($result as $key => $value) {
-            $obj->$key = $value;
+            $this->$key = $value;
         }
     }
 }

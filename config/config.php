@@ -18,7 +18,7 @@
     define("CURRENT_USER_SESSION_NAME", "ly8il8t8YIFdK324ch4SrxR3A53zEFyICre3iC8tFyuF6u921llgG");
 
     // cookie name for logged in user remember me
-    define("REMEMBER_ME_COOKIE_NAME", "ly8il8t8YIFdKyICre3iC8tFyuhjbv7wo40w0u49712lgG");
+    define("REMEMBER_ME_COOKIE_NAME", "ly8il8t8YIe3iCaaJETaaFwo40w0u49712lgG");
 
     // how long should cookie last
     define("REMEMBER_ME_COOKIE_EXPIRY", 280000);

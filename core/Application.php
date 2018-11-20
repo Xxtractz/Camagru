@@ -7,8 +7,7 @@ class   Application
         $this->unregister_globals();
     }
 
-    private function _set_reporting()
-    {
+    private function _set_reporting(){
         if(DEBUG){
             error_reporting(E_ALL);
             ini_set('display_errors', 1);

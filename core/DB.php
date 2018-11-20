@@ -57,15 +57,15 @@
         // 
         protected function _read($table, $params = []){
             $conditionString = '';
-            $bind = '';
+            $bind = [];
             $order = '';
             $limit = '';
 
-            //Conditions
+            // conditions
             if(isset($params['conditions'])){
                 if(is_array($params['conditions'])){
                     foreach ($params['conditions'] as $condition) {
-                        $conditionString .= ' '.$condition . ' AND';
+                        $conditionString .= ' ' . $condition . ' AND';
                     }
                     $conditionString = trim($conditionString);
                     $conditionString = rtrim($conditionString, ' AND');
@@ -81,24 +81,22 @@
             if (array_key_exists('bind', $params)){
                 $bind = $params['bind'];
             }
-
             // order
             if (array_key_exists('order', $params)){
                 $order = ' ORDER BY ' . $params['order'];
             }
-
             // limit 
             if (array_key_exists('limit', $params)){
                 $limit = ' LIMIT ' . $params['limit'];
             }
 
-        $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
-        if($this->query($sql, $bind)){
-            if(!count($this->_result))
-                return false;
-            return true;
-        }
-        return false;
+            $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
+            if($this->query($sql, $bind)){
+                if(!count($this->_result))
+                    return false;
+                return true;
+            }
+            return false;
         }
 
         public function find($table, $params = []){
@@ -172,6 +170,18 @@
         public function first()
         {
             return (!empty($this->_result)) ? $this->_result[0] : [] ;
+        }
+
+        public function count(){
+            return $this->_count;
+        }
+
+        public function lastID(){
+            return $this->_lastInsertID;
+        }
+
+        public function get_columns($table){
+            return $this->query("SHOW COLUMNS FROM {$table}")->results();;
         }
         
         public function error(){
