@@ -33,9 +33,9 @@ class Validate{
                             break;
 
                         case 'matches':
-                            if(strlen($value) != $source[$rule_value]){
-                                $matchDisplay = $item[$rule_value]['diplay'];
-                                $this->addError(["{$mathchdisplay} and {$display} must match.", $item]);
+                            if($value != $source[$rule_value]){
+                                $matchDisplay = $items[$rule_value]['display'];
+                                $this->addError(["{$matchDisplay} and {$display} must match.", $item]);
                             }
                             break;
                         

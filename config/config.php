@@ -22,3 +22,6 @@
 
     // how long should cookie last
     define("REMEMBER_ME_COOKIE_EXPIRY", 280000);
+
+    // Controller name for restricted redirect
+    define("ACCESS_RESTRICTED", "Restricted");

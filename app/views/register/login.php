@@ -3,9 +3,10 @@
 
 <?php $this->start('body'); ?>
 
-<div class="jumbotron bg-white">
-    <div class="form-signin bg-light">
-    <?=$this->displayErrors ?>
+<div class="jumbotron bg-reg">
+    <div class="form-signin bg-reg">
+     <h3>Please Sign-in Below</h3><br>
+     <?=$this->displayErrors ?>
             <form class="form" action="<?=PROOT?>register/login" method="post">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -27,7 +28,14 @@
                     <a href="<?=PROOT?>register/register" class="text-primary" >Register</a>
                 </div>
             </form>
+            <br>
+            <hr>
+    <p class="text-right"> mbaloyi_</p> 
+    <div class="text-left">
+                    <a href="<?=PROOT?>" class="text-primary" >Home</a>
+                </div>
     </div>
+
 </div>
 
 <?php $this->end(); ?>

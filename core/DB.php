@@ -18,6 +18,8 @@
             global $DB_PASSWORD;
             try{
                 $this->_pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+                $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->_pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             }
             catch(PDOException $e){
                 die($e->getMessage());

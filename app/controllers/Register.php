@@ -37,6 +37,58 @@ class Register extends Controller
         $this->view->render('register/login');
     }
 
+    public function registerAction(){
+        $validation = new Validate();
+        $posted_values = ['fname'=>'', 'lname'=>'', 'username'=>'', 'email'=>'', 'password'=>'', 'confirm'=>''];
+
+        if($_POST){
+            $posted_values = posted_values($_POST);
+            $validation->check($_POST, [
+                'fname' => [
+                    'display' => 'First Name',
+                    'required' => true
+                ],
+                'lname' => [
+                    'display' => 'Last Name',
+                    'required' => true
+                ],
+                'username' => [
+                    'display' => 'Username',
+                    'required' => true,
+                    'unique' => 'users',
+                    'min' => 6,
+                    'max' => 150
+                ],
+                'email'=> [
+                    'display' => 'Email',
+                    'required' => true,
+                    'unique' => 'users',
+                    'max' => 150,
+                    'valid_email' => true
+                ],
+                'password'=> [
+                    'display' => 'Password',
+                    'required' => true,
+                    'min' => 6
+                ],
+                'confirm' => [
+                    'display' => 'Confirm Password',
+                    'required' => true,
+                    'matches' => 'password'
+                ] 
+            ]);
+            
+            if($validation->passed()){
+                $newUser = new Users();
+                $newUser->registerNewUser($_POST);
+                Router::redirect('register/login');
+            }
+        }
+        $this->view->post = $posted_values;
+        $this->view->displayErrors = $validation->displayErrors();
+        $this->view->render('register/register');
+    }
+
     public function logoutAction(){
         if(currentUser()){
             currentUser()->logout();

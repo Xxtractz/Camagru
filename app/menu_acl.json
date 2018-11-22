@@ -1,0 +1,6 @@
+{
+    "Home" : "home",
+    "Login" : "register/login",
+    "Register" : "register/register",
+    "Logout" : "register/logout"
+}

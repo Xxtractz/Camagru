@@ -22,23 +22,9 @@
 
     <?= $this->content('head'); ?>
 </head>
-<body>
+<body class="reg">
   <main role="main">
-    <div class="jumbotron">
-      
-    </div>
     <?= $this->content('body'); ?>
   </main>
-        
-  <div class="container-fluid bg-dark">
-  <div class="row">
-    <div class="col">
-      <code>All Rights Reserved. &copy; Camagru | Wethinkcode_</code>
-    </div>
-    <div class="col text-right">
-    <code>mbaloyi_</code>
-    </div>
-  </div>
-</div>
 </body>
 </html>

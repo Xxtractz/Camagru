@@ -76,4 +76,21 @@ class Users extends Model{
         self::$currentLoggedInUser= null;
         return true;
     }
+    
+    public function registerNewUser($params){
+        $this->assign($params);
+        $this->deleted = 0;
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        $this->save();        
+    }
+
+    public function acls(){
+        if(empty($this->acl))
+            return [];
+        return json_decode($this->acl, true);
+    }
+
+    // public function confirm(){
+    //     if($this->confirm == 1
+    // }
 }
