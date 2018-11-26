@@ -24,6 +24,7 @@
 </head>
 <body>
   <?php include 'main_menu.php'?>
+  <div class="space" style="min-height: 75px;"></div>
   <div class="container-fluid" style="min-height:cal(100% - 125px);">
     <?= $this->content('body'); ?>
   </div>

@@ -30,3 +30,9 @@
         }
         return $currentPage;
     }
+
+    function _gettoken(){
+        $str = "1234567890qwertyuiopasdfghjklzxcvbnm!@#$%^&*(}{";
+        $random = substr(str_shuffle($str), 0, 12);
+        return $random;
+    }

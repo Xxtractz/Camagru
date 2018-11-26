@@ -62,6 +62,10 @@
                 foreach(currentUser()->acls() as $a) {
                     $current_user_acls[] = $a;
                 }
+                if (currentUser()->confirm != 1) {
+                    $check = new Users();
+                    $check->logout();
+                }
             }
 
             foreach ($current_user_acls as $level ) {
@@ -81,7 +85,6 @@
                     break;
                 }
             }
-
             return $grantAccess;
         }
 

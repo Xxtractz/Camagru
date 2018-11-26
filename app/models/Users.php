@@ -19,7 +19,7 @@ class Users extends Model{
                 $u = $this->_db->findFirst("users", ["conditions"=>"username = ?", "bind"=>[$user]]);
             } 
         }
-        if($u){
+        if(!empty($u)){
             foreach ($u as $key => $value) {
                 $this->$key = $value;
             }
