@@ -12,8 +12,6 @@
       <title><?= $this->siteTitle(); ?></title>
       <!-- Below are the CSS Links (Bootstrap css) -->
       <link rel="stylesheet" type="text/css" media="screen" href="<?=PROOT?>css/main.css" />
-      <link rel="stylesheet" type="text/css" media="screen" href="<?=PROOT?>css/bootstrap-reboot.css" />
-      <link rel="stylesheet" type="text/css" media="screen" href="<?=PROOT?>css/bootstrap-grid.css" />
       <link rel="stylesheet" type="text/css" media="screen" href="<?=PROOT?>css/bootstrap.css" />
 
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 

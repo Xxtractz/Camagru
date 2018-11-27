@@ -90,7 +90,15 @@ class Register extends Controller
     }
 
     public function confirmAction(){
-        
+        $user_id = $this->UsersModel->findByID($_GET['sub']);;
+
+        if($user_id){
+            $user_id->confirm($_GET['sub'], $_GET['code']);
+            Router::redirect('register/login');
+        }
+        // else {
+        //     $verify->verify($_POST['username']);
+        // }
         $this->view->render('register/confirm');
     }
 

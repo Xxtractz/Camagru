@@ -30,8 +30,12 @@ class Users extends Model{
         return $this->findFirst(["conditions"=>"username = ?", "bind"=>[$username]]);
     }
 
-    public function findByConfirm($confirm_code){
-        return $this->findFirst(["conditions"=>"confirm_code = ?", "bind"=>[$confirm_code]]);
+    public function findByID($id){
+        return $this->findFirst(["conditions"=>"id = ?", "bind"=>[$id]]);
+    }
+
+    public function findByConfirm_Code($code){
+        return $this->findFirst(["conditions"=>"confirm_code = ?", "bind"=>[$code]]);
     }
 
     public static function currentLoggedInUser(){
@@ -92,9 +96,29 @@ class Users extends Model{
         SendMail::verify($this->email, $this->_db->lastID(), $token);        
     }
 
-    // public function confrim($token){
-    //     if($this->confirm_token;)
+    public function confirm($id, $token){
+        if($token){
+            $info = [
+                'confirm' => 1,
+                'confirm_code' => ''
+            ];
+            $this->update($id, $info);
+        }
+    }
 
+    // public function verify($user)
+    // {
+    //     if (findByUsename($user) === $this->username){
+    //         $token = _gettoken();
+    //         $this->confirm_code = $token;
+    //         $this->confirm = 0;
+    //         $this->deleted = 0;
+    //         SendMail::verify($this->email, $this->_db->lastID(), $token); 
+    //     }
+    //     else {
+    //         echo "Error Occured";
+    //         Router::redirect('register/login');
+    //     }
     // }
 
     public function acls(){
