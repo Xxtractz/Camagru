@@ -28,9 +28,15 @@ class SendMail{
         self::send($email, $subject, $message);
     }
 
-    public static function likeNotification($email) {
+    public static function like($email) {
         $subject = "Camagru-Like";
         $message = "You have a new Like";
+        self::send($email, $subject, $message);
+    }
+
+    public static function comment($email) {
+        $subject = "Camagru-Comment";
+        $message = "You have a new Comment";
         self::send($email, $subject, $message);
     }
 }
