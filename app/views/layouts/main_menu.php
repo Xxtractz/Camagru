@@ -3,7 +3,7 @@ $menu = Router::getMenu('menu_acl');
 $currentPage = currentPage();
 ?>
 <nav class="navbar fixed-top navbar-expand-md navbar-light nav-bg border-bottom border-dark" id="main_menu">
-    <a class="navbar-brand " href="" :hover>
+    <a class="navbar-brand " href="<?=PROOT?>" :hover>
     <img class ="logo d-inline-block align-top" src="<?=PROOT?>img/logo.png" >
     CAMAGRU
     </a>

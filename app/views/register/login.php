@@ -1,10 +1,8 @@
-<?php $this->start('head')?>
-<?php $this->end(); ?>
 
 <?php $this->start('body'); ?>
 
-<div class="jumbotron bg-reg">
-    <div class="form-signin bg-reg">
+<div class="jumbotron bg-white">
+    <div class="form-signin bg-white">
      <h3>Please Sign-in Below</h3><br>
      <?=$this->displayErrors ?>
             <form class="form" action="<?=PROOT?>register/login" method="post">

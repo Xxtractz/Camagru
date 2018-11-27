@@ -1,31 +1,13 @@
-<?php $this->start('head')?>
-<?php $this->end(); ?>
 
 <?php $this->start('body'); ?>
 
-<div class="jumbotron bg-reg">
-    <div class="form-signin bg-reg">
-     <h3>Please Sign-in Below</h3><br>
-     <?=$this->displayErrors ?>
-            <form class="form" action="<?=PROOT?>register/login" method="post">
+<div class="jumbotron bg-white">
+<h3 class= "text-center">Please Verify your Account</h3><br>
+    <p class= "text-center">Click the link below to verify</p>
+    <div class="text-center">
+            <form class="form" action="<?=PROOT?>register/confirm" method="post">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" value="" class="form-control" >
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" value="" class="form-control" >
-                </div>
-                <div class="form-group">
-                    <label for="remember_me">Remember Me 
-                        <input type="checkbox" id="remember_me" name="remember_me" value="on"> 
-                    </label>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-outline-secondary">
-                </div>
-                <div class="text-right">
-                    <a href="<?=PROOT?>register/register" class="text-primary" >Register</a>
+                    <input type="submit" value="Verify Registration" class="btn btn-outline-secondary">
                 </div>
             </form>
             <br>

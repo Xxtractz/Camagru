@@ -2,5 +2,9 @@
     "Home" : "home",
     "Login" : "register/login",
     "Register" : "register/register",
+    "Profile" : "account/profile",
+    "Gallery" : "account/gallery",
+    "Add/Edit Images" : "account/edit",
     "Logout" : "register/logout"
+
 }

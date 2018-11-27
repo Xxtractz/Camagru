@@ -30,6 +30,10 @@ class Users extends Model{
         return $this->findFirst(["conditions"=>"username = ?", "bind"=>[$username]]);
     }
 
+    public function findByConfirm($confirm_code){
+        return $this->findFirst(["conditions"=>"confirm_code = ?", "bind"=>[$confirm_code]]);
+    }
+
     public static function currentLoggedInUser(){
         if (!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
             if(Session::exists(CURRENT_USER_SESSION_NAME)){
@@ -79,10 +83,19 @@ class Users extends Model{
     
     public function registerNewUser($params){
         $this->assign($params);
+        $token = _gettoken();
+        $this->confirm_code = $token;
+        $this->confirm = 0;
         $this->deleted = 0;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        $this->save();        
+        $this->save();
+        SendMail::verify($this->email, $this->_db->lastID(), $token);        
     }
+
+    // public function confrim($token){
+    //     if($this->confirm_token;)
+
+    // }
 
     public function acls(){
         if(empty($this->acl))

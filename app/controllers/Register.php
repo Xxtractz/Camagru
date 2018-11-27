@@ -89,6 +89,11 @@ class Register extends Controller
         $this->view->render('register/register');
     }
 
+    public function confirmAction(){
+        
+        $this->view->render('register/confirm');
+    }
+
     public function logoutAction(){
         if(currentUser()){
             currentUser()->logout();

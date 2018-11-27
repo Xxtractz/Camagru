@@ -1,10 +1,8 @@
-<?php $this->start('head')?>
-<?php $this->end(); ?>
 
 <?php $this->start('body'); ?>
-<div class="jumbotron bg-reg">
+<div class="jumbotron bg-white">
     <h3 class="text-center">Register Here</h3>
-    <div class="form-signup bg-reg">
+    <div class="form-signup bg-white">
         <?=$this->displayErrors ?>
         <form class="form" action="<?=PROOT?>register/register" method="post">
             <div class="form-group">
