@@ -10,61 +10,64 @@ class Account extends Controller
     public function profileAction(){
         $validation = new Validate();
         $posted_values = ['fname'=>'', 'lname'=>'', 'username'=>'', 'email'=>'', 'password'=>'', 'confirm'=>''];
-        
+
         if($_POST){
-            $posted_values = posted_values($_POST); 
-            if ($_POST['fname']){
-                $validation->check($_POST, [
-                    'fname' => [
-                        'display' => 'First Name',
-                        'required' => true
-                    ]
-                ]);
+            $posted_values = posted_values($_POST);
+            $validation->check($_POST, [
+                'fname' => [
+                    'display' => 'First Name'
+                ],
+                'lname' => [
+                    'display' => 'Last Name'
+                ],
+                'username' => [
+                    'display' => 'Username',
+                    'unique' => 'users',
+                    'min' => 6,
+                    'max' => 150
+                ],
+                'email'=> [
+                    'display' => 'Email',
+                    'unique' => 'users',
+                    'max' => 150,
+                    'valid_email' => true
+                ],
+                'password'=> [
+                    'display' => 'Password',
+                    'min' => 6
+                ],
+                'confirm' => [
+                    'display' => 'Confirm Password',
+                    'matches' => 'password'
+                ] 
+            ]);
+
+            if(empty($_POST['fname'])){
+                $_POST['fname'] = currentUser()->fname;
+            }    
+            if(empty($_POST['lname'])){
+                $_POST['lname'] = currentUser()->lname;
             }
-            if ($_POST['lname']){
-                $validation->check($_POST, [
-                    'lname' => [
-                        'display' => 'Last Name',
-                        'required' => true
-                    ]
-                ]);
+            if(empty($_POST['username'])){
+                $_POST['username'] = currentUser()->username;
             }
-            if ($_POST['username']){
-                $validation->check($_POST, [
-                    'username' => [
-                        'display' => 'Username',
-                        'required' => true,
-                        'unique' => 'users',
-                        'min' => 6,
-                        'max' => 150
-                    ]]);
+            if(empty($_POST['email'])){
+                $_POST['email'] = currentUser()->email;
             }
-            if ($_POST['email']){
-                $validation->check($_POST, [
-                    'email'=> [
-                        'display' => 'Email',
-                        'required' => true,
-                        'unique' => 'users',
-                        'max' => 150,
-                        'valid_email' => true
-                    ]]);
+            if(empty($_POST['password'])){
+                $_POST['password'] = currentUser()->password;
+            }else {
+                $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
             }
-            if ($_POST['password']){
-                $validation->check($_POST, [
-                    'password'=> [
-                        'display' => 'Password',
-                        'required' => true,
-                        'min' => 6
-                    ],
-                    'confirm' => [
-                        'display' => 'Confirm Password',
-                        'required' => true,
-                        'matches' => 'password'
-                    ]]);
-            }
+
             if($validation->passed()){
+                $default = [
+                    'confirm' => 1,
+                    'notify' => currentUser()->notify,
+                    'confirm_code' => ''
+                ];
                 $newUser = new Users();
-                $newUser->updateUser($_POST);
+                $newUser->updateUser(currentUser()->id, $_POST, $default);
                 Router::redirect('register/login');
             }
         }

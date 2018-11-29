@@ -97,11 +97,12 @@ class Users extends Model{
         SendMail::verify($this->email, $this->_db->lastID(), $token);        
     }
 
-    public function updateUser($params){
-        $this->assign($params);
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        $this->update($this->id, $params);       
+    public function updateUser($id,$params, $default){
+        $this->update($id, $params);
+        $this->update($id, $default);
+        $this->logout();
     }
+    
     public function confirm($id, $token){
         if($token){
             $info = [
