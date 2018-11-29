@@ -91,11 +91,17 @@ class Users extends Model{
         $this->confirm_code = $token;
         $this->confirm = 0;
         $this->deleted = 0;
+        $this->notify = 0;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->save();
         SendMail::verify($this->email, $this->_db->lastID(), $token);        
     }
 
+    public function updateUser($params){
+        $this->assign($params);
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        $this->update($this->id, $params);       
+    }
     public function confirm($id, $token){
         if($token){
             $info = [
@@ -105,21 +111,6 @@ class Users extends Model{
             $this->update($id, $info);
         }
     }
-
-    // public function verify($user)
-    // {
-    //     if (findByUsename($user) === $this->username){
-    //         $token = _gettoken();
-    //         $this->confirm_code = $token;
-    //         $this->confirm = 0;
-    //         $this->deleted = 0;
-    //         SendMail::verify($this->email, $this->_db->lastID(), $token); 
-    //     }
-    //     else {
-    //         echo "Error Occured";
-    //         Router::redirect('register/login');
-    //     }
-    // }
 
     public function acls(){
         if(empty($this->acl))
