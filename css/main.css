@@ -127,3 +127,10 @@
     bottom: 0;
   }
 
+video{
+  border-color: black;
+}
+
+#canvas{
+  display: none
+}

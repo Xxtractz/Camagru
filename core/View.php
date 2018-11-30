@@ -3,6 +3,7 @@
     {
         protected $_head;
         protected $_body;
+        protected $_source;
         protected $_siteTitle = SITE_TITLE;
         protected $_outputBuffer;
         protected $_layout = DEFAULT_LAYOUT;
@@ -28,13 +29,12 @@
 
         public function content($type)
         {
-            if($type == 'head')
-            {
+            if($type == 'head'){
                 return $this->_head;
-            }
-            elseif($type == 'body')
-            {
+            }elseif($type == 'body'){
                 return $this->_body;
+            }elseif($type = 'source'){
+                return $this->_source;
             }
             return false;
         }
@@ -51,6 +51,8 @@
                 $this->_head = ob_get_clean();
             }elseif ($this->_outputBuffer == 'body'){
                 $this->_body = ob_get_clean();
+            }elseif ($this->_outputBuffer == 'source'){
+                $this->_source = ob_get_clean();
             }else {
                 die('You must first run the start method');
             }

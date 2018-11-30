@@ -36,6 +36,6 @@
         </div>
       </div>
     </div>
-      <script src="<?=PROOT?>js/main.js"></script>
+    <?= $this->content('source'); ?>
   </body>
 </html>

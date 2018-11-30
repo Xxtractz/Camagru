@@ -10,7 +10,6 @@ const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const photos = document.getElementById('photos');
 const photoButton = document.getElementById('photo-button');
-const clearButton = document.getElementById('clear-button');
 const photoFilter = document.getElementById('photo-filter');
 
 // Get media stream
