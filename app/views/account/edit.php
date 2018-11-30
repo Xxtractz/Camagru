@@ -15,12 +15,17 @@
                 <button id="save-button" class="btn btn-outline-secondary"> Save</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                
+        <div class="row bg-dark">
+            <div  class="thum" >
+                <a href="" id="photo-filter">
+                <img src="<?=PROOT?>img/sticker_1.png" alt="Sticker 1" style="width:150px">
+                </a>
             </div>
-            <div class="col">
-                
+            <div class="thum">
+                <img src="<?=PROOT?>img/sticker_2.png" alt="Sticker 2" style="width:150px">
+            </div> 
+            <div class="thum">
+                <img src="<?=PROOT?>img/sticker_3.png" alt="Sticker 3" style="width:150px">
             </div> 
         </div>
         
