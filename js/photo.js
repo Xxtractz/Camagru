@@ -1,97 +1,106 @@
+const constraints = {
+  video: true
+};
 
-// Global Vars
-let width = 500,
-    height = 0,
-    filter = 'none',
-    streaming = false;
 
-// DOM Elements
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const photos = document.getElementById('photos');
-const photoButton = document.getElementById('photo-button');
-const photoFilter = document.getElementById('photo-filter');
 
-// Get media stream
-navigator.mediaDevices.getUserMedia({video: true, audio: false})
-  .then(function(stream) {
-    // Link to the video source
-    video.srcObject = stream;
-    // Play video
-    video.play();
-  })
-  .catch(function(err) {
-    console.log(`Error: ${err}`);
-  });
 
-  // Play when ready
-  video.addEventListener('canplay', function(e) {
-    if(!streaming) {
-      // Set video / canvas height
-      height = video.videoHeight / (video.videoWidth / width);
+var video			=	document.getElementById('videoElement'),
+	canvas			=	document.getElementById('capturedElement'),
+	photo			=	document.getElementById('photoElement'),
+	context_canvas	=	canvas.getContext('2d'),
+	context_photo	=	photo.getContext('2d'),
+	stick1			=	document.getElementById('stick1'),
+	stick2			=	document.getElementById('stick2'),
+	stick3			=	document.getElementById('stick3');
+	save			=	document.getElementById('btn');
+	ac1				=	0,
+	ac2				=	0,
+	ac3				=	0;
+    xhr				=	new XMLHttpRequest();
+	cansave			= 0;
+document.getElementById('img').onchange = function() {
+	cansave = 1;
+  var img = new Image();
+  img.onload = draw;
+  img.onerror = failed;
+  img.src = URL.createObjectURL(this.files[0]);
+};
+function draw() {
+	context_canvas.drawImage(this, 0, 0, 400, 300);
+	context_photo.drawImage(this, 0, 0, 400, 300);
+	ac1 = 0;
+	ac2 = 0;
+	ac3 = 0;
+}
+function failed() {
+  console.error("The provided file couldn't be loaded as an Image media");
+}
 
-      video.setAttribute('width', width);
-      video.setAttribute('height', height);
-      canvas.setAttribute('width', width);
-      canvas.setAttribute('height', height);
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {video.srcObject = stream})
+    .catch(function(error) {
+	 console.log("Something went wrong!");
+   });
+ }
+  document.getElementById('capture').addEventListener('click',function(){
+	cansave = 1;
+	context_canvas.drawImage(video, 0, 0, 400, 300);
+	context_photo.drawImage(video, 0, 0, 400, 300);
+	photoElement.setAttribute('src',canvas.toDataURL('image/png'));
+	ac1 = 0;
+	ac2 = 0;
+	ac3 = 0;
+});
 
-      streaming = true;
-    }
-  }, false);
-
-  // Photo button event
-  photoButton.addEventListener('click', function(e) {
-    takePicture();
-
-    e.preventDefault();
-  }, false);
-
-  // Filter event
-  photoFilter.addEventListener('change', function(e) {
-    // Set filter to chosen option
-    filter = e.target.value;
-    // Set filter to video
-    video.style.filter = filter;
-
-    e.preventDefault(); 
-  });
-
-  // Clear event
-  clearButton.addEventListener('click', function(e) {
-    // Clear photos
-    photos.innerHTML = '';
-    // Change filter back to none
-    filter = 'none';
-    // Set video filter
-    video.style.filter = filter;
-    // Reset select list
-    photoFilter.selectedIndex = 0;
-  });
-
-  // Take picture from canvas
-  function takePicture() {
-    // Create canvas
-    const context = canvas.getContext('2d');
-    if(width && height) {
-      // set canvas props
-      canvas.width = width;
-      canvas.height = height;
-      // Draw an image of the video on the canvas
-      context.drawImage(video, 0, 0, width, height);
-
-      // Create image from the canvas
-      const imgUrl = canvas.toDataURL('image/png');
-
-      // Create img element
-      const img = document.createElement('img');
-
-      // Set img src
-      img.setAttribute('src', imgUrl);
-
-      // Set image filter
-      img.style.filter = filter;
-
-      // Add image to photos
-      photos.appendChild(img);
-    }
-  }
+stick1.addEventListener('click',function(){
+	if (ac1 == 0){
+		ac1 = 1;
+		context_canvas.drawImage(stick1, 0, 0, 400, 300);
+	}
+	else{
+		ac1 = 0;
+		ac2 = 0;
+		ac3 = 0;
+		context_canvas.drawImage(photoElement, 0, 0, 400, 300)
+	};
+});
+stick2.addEventListener('click',function(){
+	if (ac2 == 0){
+		ac2 = 1;
+		context_canvas.drawImage(stick2, 0, 0, 400, 300);
+	}
+	else{
+		ac1 = 0;
+		ac2 = 0;
+		ac3 = 0;
+		context_canvas.drawImage(photoElement, 0, 0, 400, 300)
+	};
+});
+stick3.addEventListener('click',function(){
+	if (ac3 == 0){
+		ac3 = 1;
+		context_canvas.drawImage(stick3, 0, 0, 400, 300);
+	}
+	else{
+		ac1 = 0;
+		ac2 = 0;
+		ac3 = 0;
+		context_canvas.drawImage(photoElement, 0, 0, 400, 300)
+	};
+});
+save.addEventListener('click',function(){
+	if (cansave == 1){
+	var Data	=	photo.toDataURL("image/png");
+	xhr.open('POST','account/edit');
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.addEventListener("load", function(event){
+		alert(this.response)
+	});
+	xhr.send("img="+Data+"&ac1="+ac1+"&ac2="+ac2+"&ac3="+ac3+"&submit=OK");
+	}
+	else{
+		alert("No Image!")
+	}
+})
