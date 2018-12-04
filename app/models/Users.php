@@ -75,8 +75,6 @@ class Users extends Model{
         $userSession = UserSessions::getFromCookie();
         if($userSession)
             $userSession->delete();
-        // $user_agent = Session::uagent_no_version();
-        // $this->_db->query("DELETE FROM user_sessions WHERE user_id = ? AND user_agent = ?", [$this->id, $user_agent]);
         Session::delete(CURRENT_USER_SESSION_NAME);
         if(Cookie::exists(REMEMBER_ME_COOKIE_NAME)){
             Cookie::delete(REMEMBER_ME_COOKIE_NAME);    
@@ -90,8 +88,7 @@ class Users extends Model{
         $token = _gettoken();
         $this->confirm_code = $token;
         $this->confirm = 0;
-        $this->deleted = 0;
-        $this->notify = 0;
+        $this->notify = 1;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->save();
         SendMail::verify($this->email, $this->_db->lastID(), $token);        
@@ -118,8 +115,4 @@ class Users extends Model{
             return [];
         return json_decode($this->acl, true);
     }
-
-    // public function confirm(){
-    //     if($this->confirm == 1
-    // }
 }

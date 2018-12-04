@@ -2,9 +2,6 @@ const constraints = {
   video: true
 };
 
-
-
-
 var video			=	document.getElementById('videoElement'),
 	canvas			=	document.getElementById('capturedElement'),
 	photo			=	document.getElementById('photoElement'),
@@ -93,10 +90,11 @@ stick3.addEventListener('click',function(){
 save.addEventListener('click',function(){
 	if (cansave == 1){
 	var Data	=	photo.toDataURL("image/png");
-	xhr.open('POST','account/edit');
+	var url = "edit";
+	xhr.open('POST', url, true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.addEventListener("load", function(event){
-		alert(this.response)
+		window.location = "edit";
 	});
 	xhr.send("img="+Data+"&ac1="+ac1+"&ac2="+ac2+"&ac3="+ac3+"&submit=OK");
 	}

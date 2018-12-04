@@ -34,6 +34,13 @@
                         <label for="confirm">Confirm Password</label>
                         <input type="password" name="confirm" id="confirm" class="form-control" placeholder="***********" value="<?=$this->post['confirm']?>" >
                     </div>
+                    <div class="form-group">
+                    <label for="notify">Notification</label>
+                    <select name="notify" id="<?=$this->post['notify']?>">
+                        <option value="1" class="form-control">on</option>
+                        <option value="0" class="form-control">off</option>
+                    </select>
+                    </div>
                 </div>
             </div>
             <div class="pull-right">
