@@ -49,14 +49,9 @@ class Pagination extends Model {
 	{
 		
 		$self = $_SERVER['PHP_SELF'];
-		
-		//$this->_db->query($query);
-		// $stmt->execute();
-		
 		$total_no_of_images = $this->_db->count();
 		
-		if($total_no_of_images > 0)
-		{
+		if($total_no_of_images > 0){
 			?><tr><td colspan="3"><?php
 			$total_no_of_pages = ceil($total_no_of_images/$images_per_page);
 			$current_page = 1;
