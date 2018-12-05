@@ -11,22 +11,30 @@ catch(PDOException $e){
 $db_name = "CREATE DATABASE IF NOT EXISTS `camagru`";
 
 $user = "CREATE TABLE camagru.users (
-  `id` int(255) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `id` int(255) NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `acl` int(11) DEFAULT NULL,
-  `confirm` varchar(255) NOT NULL,
+  `confirm` int(255) NOT NULL DEFAULT '0',
   `confirm_code` varchar(255) NOT NULL,
-  `notify` varchar(150) NOT NULL
+  `notify` int(150) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+$com = "CREATE TABLE `camagru.comment` (
+  `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `comment` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
 $img ="CREATE TABLE camagru.images (
   `id` int(255) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `user_id` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
+  `image_like` int(255) NOT NULL DEFAULT '0',
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
@@ -39,6 +47,7 @@ $ss ="CREATE TABLE camagru.user_sessions (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 $db->query($db_name);
+$db->query($com);
 $db->query($user);
 $db->query($img);
 $db->query($ss);

@@ -17,11 +17,10 @@ class Pagination extends Model {
                 <img class="card-img-top" src="<?=PROOT?><?=$key->image?>">
 				<?php if(currentUser()):?>
                 <div class="card-body">
-				<?php foreach ($menu as $key => $value):?>
-               		 <p class="nav-item">
-                    	<a class="nav-link" href="<?=$value?>"><?=$key?></a>
-                	</p>
-            		<?php endforeach;?>
+				<p class="text-muted card-text">comment :</p>
+				<?php
+				$this->comment($key->id)
+				?>
                   <form method="POST" class="form-group">
 				  	<textarea class="form-control" name="comment" id="" cols="30" rows="1" maxlength="50"></textarea>
 					  <input type="hidden" name="image_id" value="<?=$key->id?>">
@@ -45,6 +44,17 @@ class Pagination extends Model {
         }else{
             echo '<h2>Please Load Images</h2>'; 
         }                   
+	}
+
+	public function comment($img_id){
+		$comment = new Comment();
+		$com = $comment->find();
+		foreach ($com as $key => $value) {
+			if($value->image_id === $img_id){
+				echo '<small>'.$value->name.' :</small>';
+				echo '<small class="text-muted ">'.$value->comment.'</small><br>';
+			}
+		}
 	}
 	
 	public function dataview($query){
@@ -86,38 +96,41 @@ class Pagination extends Model {
 
     public function paginglink($query,$images_per_page)
 	{
-		
+		$i = 0;
+		$img = new Images();
+		$total = $img->find();
+		foreach ($total as $arys => $val) {
+			$i++;
+		}
 		$self = $_SERVER['PHP_SELF'];
-		$total_no_of_images = $this->_db->count();
-		
+		$total_no_of_images = $i;
+
 		if($total_no_of_images > 0){
 			?><tr><td colspan="3"><?php
 			$total_no_of_pages = ceil($total_no_of_images/$images_per_page);
+			
 			$current_page = 1;
 			if(isset($_GET["page_no"]))
 			{
 				$current_page = $_GET["page_no"];
 			}
-			if($current_page!=1)
+			if($current_page)
 			{
 				$previous =$current_page-1;
+				if($previous === 0)
+					$previous = 1;
 				echo "<a href='".$self."?page_no=1'>First</a>&nbsp;&nbsp;";
 				echo "<a href='".$self."?page_no=".$previous."'>Previous</a>&nbsp;&nbsp;";
 			}
 			for($i=1;$i<=$total_no_of_pages;$i++)
 			{
-				if($i===$current_page)
-				{
 					echo "<strong><a href='".$self."?page_no=".$i."' style='color:red;text-decoration:none'>".$i."</a></strong>&nbsp;&nbsp;";
-				}
-				else
-				{
-					echo "<a href='".$self."?page_no=".$i."'>".$i."</a>&nbsp;&nbsp;";
-				}
 			}
-			if($current_page!=$total_no_of_pages)
+			if($current_page)
 			{
 				$next = $current_page+1;
+				if($next > $total_no_of_pages)
+					$next = $total_no_of_pages;
 				echo "<a href='".$self."?page_no=".$next."'>Next</a>&nbsp;&nbsp;";
 				echo "<a href='".$self."?page_no=".$total_no_of_pages."'>Last</a>&nbsp;&nbsp;";
 			}
