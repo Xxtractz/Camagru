@@ -9,7 +9,7 @@
       $query = "SELECT * FROM images ORDER BY `date` DESC";       
       $records_per_page = 5;
       $newquery = $page->paging($query, $records_per_page);
-      $page->dataview($newquery);
+      $page->dataviewhome($newquery);
       ?>
       </div>
       <br>

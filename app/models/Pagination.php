@@ -5,7 +5,7 @@ class Pagination extends Model {
         $table = 'images';
         parent::__construct($table);
     }
-    public function dataview($query){
+    public function dataviewhome($query){
     	$this->_db->query($query);
         //$stmt->execute();
 
@@ -32,6 +32,26 @@ class Pagination extends Model {
 			
         }else{
             echo '<h2>Please Load Images</h2>'; 
+        }                   
+	}
+	
+	public function dataview($query){
+    	$this->_db->query($query);
+        //$stmt->execute();
+
+        if($this->_db->count() > 0){
+			$arr = $this->_db->results();
+			foreach ($arr as $key){
+			?><div class="col">
+					<img class="" src="<?=PROOT?><?=$key->image?>">
+					<button id="btn" class="btn btn-outline-secondary">Delete</button><br>
+
+				</div>
+			<?php	
+			}
+			
+        }else{
+            echo '<h2>OOOH NO!!! <br>No Images<br>Please Load Images</h2>'; 
         }                   
     }
 

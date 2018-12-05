@@ -1,9 +1,22 @@
 <?php $this->start('body'); ?>
 
 <div class="jumbotron bg-white">
-<h3 class= "text-center">This is Gallery</h3><br>
-    </div>
-
+<div class="container">
+  <?php 
+      $page = new Pagination();
+      $query = "SELECT * FROM images ORDER BY `date` DESC";       
+      $records_per_page = 5;
+      $newquery = $page->paging($query, $records_per_page);
+      $page->dataview($newquery);
+      ?>
+      </div>
+      <br>
+      
+      <?php
+      $page->paginglink($query,$records_per_page);		
+    ?>
+    <br><br>
+</div>
 </div>
 
 <?php $this->end(); ?>
