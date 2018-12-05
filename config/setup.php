@@ -44,3 +44,4 @@ $db->query($img);
 $db->query($ss);
 
 echo "Installation Complete";
+die();
