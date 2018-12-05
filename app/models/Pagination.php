@@ -15,10 +15,18 @@ class Pagination extends Model {
 			?><div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <img class="card-img-top" src="<?=PROOT?><?=$key->image?>">
+				<?php if(currentUser()):?>
                 <div class="card-body">
+				<?php foreach ($menu as $key => $value):?>
+               		 <p class="nav-item">
+                    	<a class="nav-link" href="<?=$value?>"><?=$key?></a>
+                	</p>
+            		<?php endforeach;?>
                   <form method="POST" class="form-group">
 				  	<textarea class="form-control" name="comment" id="" cols="30" rows="1" maxlength="50"></textarea>
-					  <input class="btn btn-sm btn-outline-secondary" type="submit" value="Comment">
+					  <input type="hidden" name="image_id" value="<?=$key->id?>">
+					  <input type="hidden" name="name" value="<?=currentUser()->fname?>">
+					<input class="btn btn-sm btn-outline-secondary" type="submit" value="Comment">
 				  </form>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
@@ -27,6 +35,7 @@ class Pagination extends Model {
                     </div>
                     <small class="text-muted"><?=$key->date?></small>
                   </div>
+				  <?php endif; ?>
                 </div>
               </div>
             </div><?php
