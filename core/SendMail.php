@@ -2,7 +2,7 @@
 class SendMail{
 
     private static function link_gen($link, $id, $token) {
-        return "https://".$_SERVER['HTTP_HOST'].PROOT.$link."?sub=".$id."&code=".$token;
+        return $_SERVER['HTTP_HOST'].PROOT.$link."?sub=".$id."&code=".$token;
     }
 
     private static function send($mail_to, $mail_subject, $mail_message) {
@@ -10,8 +10,8 @@ class SendMail{
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $headers .= 'From: <noreply@camagru.co.za>'."\r\n";
         $headers .= 'Reply-To: <noreply@camagru.co.za>' ."\r\n";
-        $headers .= 'X-Mailer: PHP/' . PHP_VERSION;
-        mail($mail_to, $mail_subject, $mail_message, $header);
+        $headers .= 'X-Mailer: PHP/' .PHP_VERSION;
+        mail($mail_to, $mail_subject, $mail_message, $headers);
     }
 
     public static function verify($email, $id, $token) {

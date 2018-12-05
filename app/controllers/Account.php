@@ -76,6 +76,10 @@ class Account extends Controller
     }
 
     public function galleryAction(){
+        $img = new Images();
+        if(isset($_REQUEST['delete'])){
+            $img->delete($_REQUEST['delete']);
+        }
         $this->view->render('account/gallery');
     }
 

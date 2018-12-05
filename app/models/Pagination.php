@@ -7,7 +7,7 @@ class Pagination extends Model {
     }
     public function dataviewhome($query){
     	$this->_db->query($query);
-        //$stmt->execute();
+        $self = $_SERVER['PHP_SELF'];
 
         if($this->_db->count() > 0){
 			$arr = $this->_db->results();
@@ -16,11 +16,14 @@ class Pagination extends Model {
               <div class="card mb-4 shadow-sm">
                 <img class="card-img-top" src="<?=PROOT?><?=$key->image?>">
                 <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <form method="POST" class="form-group">
+				  	<textarea class="form-control" name="comment" id="" cols="30" rows="1" maxlength="50"></textarea>
+					  <input class="btn btn-sm btn-outline-secondary" type="submit" value="Comment">
+				  </form>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary"></button>
+					  <a href="<?=$self?>?like=<?=$key->id?>" class="btn btn-sm btn-outline-secondary">like</a><br>
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><?=$key->image_like?></button>
                     </div>
                     <small class="text-muted"><?=$key->date?></small>
                   </div>
@@ -36,21 +39,28 @@ class Pagination extends Model {
 	}
 	
 	public function dataview($query){
-    	$this->_db->query($query);
-        //$stmt->execute();
+		$this->_db->query($query);
+		$self = $_SERVER['PHP_SELF'];
+		$i = 0;
 
         if($this->_db->count() > 0){
 			$arr = $this->_db->results();
-			foreach ($arr as $key){
-			?><div class="col">
-					<img class="" src="<?=PROOT?><?=$key->image?>">
-					<button id="btn" class="btn btn-outline-secondary">Delete</button><br>
+				foreach ($arr as $key){
+					if(currentUser()->id === intval($key->user_id)){
+						?><div class="col">
+						<img class="" src="<?=PROOT?><?=$key->image?>">
+						<a href="<?=$self?>/?delete=<?=$key->id?>" class="btn btn-outline-secondary">Delete</a><br>
+						</div>
+					<?php
+					$i++;
+					}
 
-				</div>
-			<?php	
-			}
-			
-        }else{
+				}
+				if ($i === 0){
+					echo '<h2 style="color:red">Where the Images at!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h2>';
+				}	
+		}
+		else{
             echo '<h2>OOOH NO!!! <br>No Images<br>Please Load Images</h2>'; 
         }                   
     }

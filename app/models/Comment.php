@@ -1,7 +1,7 @@
 <?php
-class Images extends Model{
+class Comment extends Model{
     public function __construct($user=''){
-        $table = 'images';
+        $table = 'comment';
         parent::__construct($table);
     }
 }
