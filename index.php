@@ -7,6 +7,7 @@
     require_once(ROOT . DS . 'config' . DS . 'database.php');
     require_once(ROOT . DS . 'app' . DS . 'libs' . DS . 'helpers' . DS . 'functions.php');
 
+
     //autoload classes
     function autoload($className)
     {

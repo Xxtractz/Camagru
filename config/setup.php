@@ -1,4 +1,7 @@
 <?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 try{
   $db = new PDO("mysql:host=localhost", "root", "123456");
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -10,8 +13,8 @@ catch(PDOException $e){
 
 $db_name = "CREATE DATABASE IF NOT EXISTS `camagru`";
 
-$user = "CREATE TABLE camagru.users (
-  `id` int(255) NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+$user = "CREATE TABLE `users` (
+  `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -23,15 +26,15 @@ $user = "CREATE TABLE camagru.users (
   `notify` int(150) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-$com = "CREATE TABLE `camagru.comment` (
+$com = "CREATE TABLE `comment` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `comment` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `image_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-$img ="CREATE TABLE camagru.images (
-  `id` int(255) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+$img ="CREATE TABLE `images` (
+  `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `user_id` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `image_like` int(255) NOT NULL DEFAULT '0',
@@ -39,18 +42,20 @@ $img ="CREATE TABLE camagru.images (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 
-$ss ="CREATE TABLE camagru.user_sessions (
+$ss ="CREATE TABLE `user_sessions` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `user_id` int(11) NOT NULL,
   `session` varchar(255) NOT NULL,
   `user_agent` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-$db->query($db_name);
-$db->query($com);
-$db->query($user);
-$db->query($img);
-$db->query($ss);
+$db->exec($db_name);
+$db->exec('USE camagru');
+$db->exec($com);
+$db->exec($user);
+$db->exec($img);
+$db->exec($ss);
 
 echo "Installation Complete";
-die();
+$db = null;
+?>

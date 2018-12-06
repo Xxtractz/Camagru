@@ -2,7 +2,7 @@
 class SendMail{
 
     private static function link_gen($link, $id, $token) {
-        return $_SERVER['HTTP_HOST'].PROOT.$link."?sub=".$id."&code=".$token;
+        return "https://".$_SERVER['HTTP_HOST'].PROOT.$link."?sub=".$id."&code=".$token;
     }
 
     private static function send($mail_to, $mail_subject, $mail_message) {
@@ -18,13 +18,6 @@ class SendMail{
         $link = self::link_gen('register/confirm', $id, $token);
         $subject = "Camagru registration!";
         $message = "Confirm your registration:<br><a href=".$link."> Click Here</a><br>";
-        self::send($email, $subject, $message);
-    }
-
-    public static function reset($email, $id, $token) {
-        $link = self::link_gen('register/reset', $tokens);
-        $subject = "Camagru restore password!";
-        $message = "Restore your password:<br><a href=".$link."> Click Here</a><br>";
         self::send($email, $subject, $message);
     }
 

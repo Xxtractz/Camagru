@@ -24,9 +24,9 @@ class Home extends Controller
         if ($_POST){
             if ($_POST['comment']){
                 $comment->insert([
-                    'image_id' => $_POST['image_id'],
-                    'name' => $_POST['name'],
-                    'comment' => $_POST['comment']
+                    'image_id' => Input::get($_POST['image_id']),
+                    'name' => Input::get($_POST['name']),
+                    'comment' => Input::get($_POST['comment'])
                 ]);
                 $col = $img->findById($_POST['image_id']);
                 $email = $col->user_id;
