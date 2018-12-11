@@ -102,6 +102,19 @@ class Register extends Controller
         $this->view->render('register/confirm');
     }
 
+    public function forgotAction(){
+        if($_POST){
+            $reset= $this->UsersModel->findByEmail($_POST['email']);
+            $newpassword = _getpassword();
+            $update = [
+                'password' => password_hash($newpassword, PASSWORD_DEFAULT) 
+            ];
+            $reset->reset($reset->id, $update);
+            SendMail::reset($reset->email, $newpassword);
+        }
+        $this->view->render('register/forgot');
+    }
+
     public function logoutAction(){
         if(currentUser()){
             currentUser()->logout();

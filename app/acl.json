@@ -2,7 +2,7 @@
     "Guest" : {
         "denied" : {},
         "Home" : ["*"],
-        "Register" : ["login", "register", "confirm"],
+        "Register" : ["login", "register", "confirm", "forgot"],
         "Restricted" : ["*"]
     },
     "LoggedIn" : {

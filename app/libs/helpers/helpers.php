@@ -37,6 +37,12 @@
         return $random;
     }
 
+    function _getpassword(){
+        $str = "1234567890asdfghjklpoiuytrewqzxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
+        $random = substr(str_shuffle($str), 0, 8);
+        return $random;
+    }
+
     function createDB(){
         try{
             $db = new PDO("mysql:host=localhost", "root", "123456");

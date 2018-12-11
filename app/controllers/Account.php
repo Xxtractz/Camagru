@@ -9,7 +9,7 @@ class Account extends Controller
 
     public function profileAction(){
         $validation = new Validate();
-        //$posted_values = ['fname'=>'', 'lname'=>'', 'username'=>'', 'email'=>'', 'password'=>'', 'confirm'=>''];
+        $posted_values = ['fname'=>'', 'lname'=>'', 'username'=>'', 'email'=>'', 'password'=>'', 'confirm'=>''];
 
         if($_POST){
             $posted_values = posted_values($_POST);

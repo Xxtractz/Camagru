@@ -21,6 +21,11 @@ class SendMail{
         self::send($email, $subject, $message);
     }
 
+    public static function reset($email, $Password){
+        $subject = "Camagru Password Reset!";
+        $message = "New Password: $Password";
+        self::send($email, $subject, $message);
+    }
     public static function like($email) {
         $subject = "Camagru-Like";
         $message = "You have a new Like";

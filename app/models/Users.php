@@ -34,8 +34,8 @@ class Users extends Model{
         return $this->findFirst(["conditions"=>"id = ?", "bind"=>[$id]]);
     }
 
-    public function findByConfirm_Code($code){
-        return $this->findFirst(["conditions"=>"confirm_code = ?", "bind"=>[$code]]);
+    public function findByEmail($email){
+        return $this->findFirst(["conditions"=>"email = ?", "bind"=>[$email]]);
     }
 
     public static function currentLoggedInUser(){
@@ -99,7 +99,10 @@ class Users extends Model{
         $this->update($id, $default);
         $this->logout();
     }
-    
+
+    public function reset($id, $default){
+        $this->update($id, $default);
+    }
     public function confirm($id, $token){
         if($token){
             $info = [
