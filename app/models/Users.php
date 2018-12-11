@@ -87,7 +87,7 @@ class Users extends Model{
         $this->assign($params);
         $token = _gettoken();
         $this->confirm_code = $token;
-        $this->confirm = 0;
+        $this->verify = 0;
         $this->notify = 1;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $this->save();
@@ -103,7 +103,7 @@ class Users extends Model{
     public function confirm($id, $token){
         if($token){
             $info = [
-                'confirm' => 1,
+                'verify' => 1,
                 'confirm_code' => ''
             ];
             $this->update($id, $info);

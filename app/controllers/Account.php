@@ -9,7 +9,7 @@ class Account extends Controller
 
     public function profileAction(){
         $validation = new Validate();
-        $posted_values = ['fname'=>'', 'lname'=>'', 'username'=>'', 'email'=>'', 'password'=>'', 'confirm'=>''];
+        //$posted_values = ['fname'=>'', 'lname'=>'', 'username'=>'', 'email'=>'', 'password'=>'', 'confirm'=>''];
 
         if($_POST){
             $posted_values = posted_values($_POST);
@@ -60,9 +60,10 @@ class Account extends Controller
                 $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
             }
 
+            unset($_POST['confirm']);
             if($validation->passed()){
                 $default = [
-                    'confirm' => currentUser()->confirm,
+                    'verify' => 1,
                     'confirm_code' => currentUser()->confirm_code
                 ];
                 $newUser = new Users();

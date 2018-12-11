@@ -22,11 +22,11 @@ class Home extends Controller
             Router::redirect('');
         }
         if ($_POST){
-            if ($_POST['comment']){
+            if ($_POST['comment'] != NULL){
                 $comment->insert([
-                    'image_id' => Input::get($_POST['image_id']),
-                    'name' => Input::get($_POST['name']),
-                    'comment' => Input::get($_POST['comment'])
+                    'image_id' => sanitize($_POST['image_id']),
+                    'name' => sanitize($_POST['name']),
+                    'comment' => sanitize($_POST['comment'])
                 ]);
                 $col = $img->findById($_POST['image_id']);
                 $email = $col->user_id;

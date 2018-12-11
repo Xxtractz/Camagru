@@ -62,7 +62,7 @@
                 foreach(currentUser()->acls() as $a) {
                     $current_user_acls[] = $a;
                 }
-                if (currentUser()->confirm != 1) {
+                if (currentUser()->verify != 1) {
                     $check = new Users();
                     $check->logout();
                 }

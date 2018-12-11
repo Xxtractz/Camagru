@@ -21,7 +21,7 @@ $user = "CREATE TABLE `users` (
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `acl` int(11) DEFAULT NULL,
-  `confirm` int(255) NOT NULL DEFAULT '0',
+  `verify` int(255) NOT NULL DEFAULT '0',
   `confirm_code` varchar(255) NOT NULL,
   `notify` int(150) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
